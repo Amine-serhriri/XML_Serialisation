@@ -17,14 +17,13 @@ public class XMLSerialisation {
 	private String sender;
 
 	/**
-	 * Erstellt ein Serialiser Objekt was ein EchoMessageObject in einen XML-String
+	 * Erstellt ein XMLSerialisation-Objekt, welches ein EchoMessage-Objekt in einen XML-String
 	 * serialisiert/deserialisiert
 	 * <p>
-	 * In der Methode werdern die Klassenparameter intialisiert. Ausserdem wird der
+	 * In der Methode werden die Klassenparameter initialisiert. Ausserdem wird der
 	 * formatierte Output zur besseren Lesbarkeit eingeschaltet.
 	 *
-	 * @param sender
-	 *            an absolute URL giving the base location of the image
+	 * @param sender Sendername
 	 * @see JAXBContext, marshaller, unmarshaller
 	 */
 	public XMLSerialisation(String sender) {
@@ -32,11 +31,11 @@ public class XMLSerialisation {
 	}
 
 	/**
-	 * Serialisiert das Object in die XML Repraesentation.
+	 * Serialisiert das Objekt in die XML-Repraesentation.
 	 *
 	 * @param message
 	 *            Object das serialisiert werden soll
-	 * @return die XML-Repräsentation des Objects als String
+	 * @return die XML-Repraesentation des Objekts als String
 	 * @see StringWriter, Marshaller.marshall()
 	 */
 	String messageToXMLString(EchoMessage message) throws JAXBException {
@@ -52,10 +51,10 @@ public class XMLSerialisation {
 	}
 
 	/**
-	 * Deserialisiert von eine XML-String ein Object aus dem JAXBContext
+	 * Deserialisiert von einem XML-String ein Objekt aus dem JAXBContext
 	 * 
 	 * @param xml
-	 *            XML-Repraesentation eines ECHO-Message Objectes
+	 *            XML-Repraesentation eines EchoMessage-Objekts
 	 * @return EchoMessage-Object
 	 * @throws JAXBException
 	 * @see StringReader, Unmarshaller.unmarshall()
