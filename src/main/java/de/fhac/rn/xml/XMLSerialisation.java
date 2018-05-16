@@ -40,7 +40,7 @@ public class XMLSerialisation {
 	 */
 	String messageToXMLString(EchoMessage message) throws JAXBException {
 		// TODO message->XML
-		return sender;
+		return "";
 	}
 
 	EchoMessage getNewMessage() {
