@@ -2,11 +2,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>de.fhac.rn.xml</groupId>
     <artifactId>XMLSerialisation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-  <properties>
+    <properties>
         <java.version>11</java.version>
         <main.class>de.fhac.rn.XMLSerialisation.XMLSerialisation</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,72 +17,75 @@
         <generated.classes.dir>${project.build.sourceDirectory}</generated.classes.dir>
         <generated.classes.package>${project.groupId}.generated</generated.classes.package>
     </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.1</version>
+            <version>2.3.2</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <version>1.2.1</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
-    <repositories>
-    </repositories>
+
     <build>
         <plugins>
+
+
+            <!-- mvn clean compile exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>add-source</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${generated.classes.dir}</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <mainClass>${main.class}</mainClass>
+                </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <dependencies>
-                    <!-- XJC-Tool -->
-                    <dependency>
-                        <groupId>org.glassfish.jaxb</groupId>
-                        <artifactId>jaxb-xjc</artifactId>
-                        <version>2.3.1</version>
-                    </dependency>
-                </dependencies>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <argLine>--illegal-access=permit</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-xjc-plugin</artifactId>
+                <version>3.3.0</version>
                 <executions>
                     <execution>
-                        <id>generate-schema</id>
+                        <id>xjc</id>
                         <phase>generate-sources</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>xsdtojava</goal>
                         </goals>
                         <configuration>
-                            <target>
-                                <property name="plugin_classpath" refid="maven.plugin.classpath" />
-                                <mkdir dir="${generated.classes.dir}" />
-                                <java classname="com.sun.tools.xjc.XJCFacade" classpath="${plugin_classpath}">
-                                    <arg line="${xsd.sources.dir}" />
-                                    <arg line="-d ${generated.classes.dir}" />
-                                    <arg line="-p ${generated.classes.package}" />
-                                    <arg line="-encoding ${project.build.sourceEncoding}" />
-                                    <arg line="-target 2.0" />
-                                    <arg line="-no-header" />
-                                </java>
-                            </target>
+                            <sourceRoot>${generated.classes.dir}</sourceRoot>
+                            <xsdOptions>
+                                <xsdOption>
+                                    <xsd>${basedir}/${xsd.sources.dir}/echoMessage.xsd</xsd>
+                                    <packagename>${generated.classes.package}</packagename>
+                                </xsdOption>
+                            </xsdOptions>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+
         </plugins>
     </build>
 </project>
