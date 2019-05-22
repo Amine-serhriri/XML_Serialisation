@@ -27,7 +27,7 @@ public class XMLSerialisation {
 	 * @see JAXBContext, marshaller, unmarshaller
 	 */
 	public XMLSerialisation(String sender) {
-		// TODO initialise class-member
+		// TODO initialize class-member
 	}
 
 	/**
