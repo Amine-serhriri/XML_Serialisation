@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.fhac.rn.xml</groupId>
@@ -40,8 +40,6 @@
 
     <build>
         <plugins>
-
-
             <!-- mvn clean compile exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -72,20 +70,19 @@
                         <goals>
                             <goal>xsdtojava</goal>
                         </goals>
-                        <configuration>
-                            <sourceRoot>${generated.classes.dir}</sourceRoot>
-                            <xsdOptions>
-                                <xsdOption>
-                                    <xsd>${basedir}/${xsd.sources.dir}/echoMessage.xsd</xsd>
-                                    <packagename>${generated.classes.package}</packagename>
-                                </xsdOption>
-                            </xsdOptions>
-                        </configuration>
+
                     </execution>
                 </executions>
+                <configuration>
+                    <sourceRoot>${generated.classes.dir}</sourceRoot>
+                    <xsdOptions>
+                        <xsdOption>
+                            <xsd>${basedir}/${xsd.sources.dir}/echoMessage.xsd</xsd>
+                            <packagename>${generated.classes.package}</packagename>
+                        </xsdOption>
+                    </xsdOptions>
+                </configuration>
             </plugin>
-
-
         </plugins>
     </build>
 </project>
