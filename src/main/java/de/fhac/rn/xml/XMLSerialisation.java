@@ -43,10 +43,8 @@ public class XMLSerialisation {
     }
 
     EchoMessage getNewMessage() {
-        EchoMessage em = of.createEchoMessage();
-        em.setSender(sender);
-        em.setType(EchoMessageType.DEFAULT);
-        return em;
+        // TODO EchoMessage aus ObjectFactory erzeugen, Sender und Type setzen
+        return null;
     }
 
     /**
