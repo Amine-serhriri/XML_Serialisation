@@ -40,12 +40,12 @@ public class XMLSerialisation {
      * @return die XML-Repraesentation des Objekts als String
      * @see StringWriter, Marshaller.marshall()
      */
-    String messageToXMLString(EchoMessage message) throws JAXBException {
+    public String messageToXMLString(EchoMessage message) throws JAXBException {
         // TODO message->XML
         return "";
     }
 
-    EchoMessage getNewMessage() {
+    public EchoMessage getNewMessage() {
         // TODO EchoMessage aus ObjectFactory erzeugen, Sender und Type setzen
         return null;
     }
@@ -58,7 +58,7 @@ public class XMLSerialisation {
      * @throws JAXBException
      * @see StringReader, Unmarshaller.unmarshall()
      */
-    EchoMessage xmlStringToMessage(String xml) throws JAXBException {
+    public EchoMessage xmlStringToMessage(String xml) throws JAXBException {
         // TODO XML->message
         return null;
     }
