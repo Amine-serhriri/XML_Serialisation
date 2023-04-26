@@ -1,13 +1,16 @@
-package de.fhac.rn.xml;
+package de.fhac.kosy.xml;
 
-import de.fhac.rn.xml.generated.EchoMessage;
-import de.fhac.rn.xml.generated.EchoMessageType;
-import de.fhac.rn.xml.generated.ObjectFactory;
+import de.fhac.kosy.xml.generated.EchoMessage;
+import de.fhac.kosy.xml.generated.ObjectFactory;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+
+import java.io.StringReader;
+import java.io.StringWriter;
+
 
 public class XMLSerialisation {
     private ObjectFactory of;
