@@ -3,10 +3,11 @@ package de.fhac.kosy.xml;
 import de.fhac.kosy.xml.generated.EchoMessage;
 import de.fhac.kosy.xml.generated.ObjectFactory;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -18,6 +19,7 @@ public class XMLSerialisation {
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
     private String sender;
+    
 
     /**
      * Erstellt ein XMLSerialisation-Objekt, welches ein EchoMessage-Objekt in einen XML-String
@@ -29,8 +31,19 @@ public class XMLSerialisation {
      * @param sender Sendername
      * @see JAXBContext, marshaller, unmarshaller
      */
-    public XMLSerialisation(String sender) {
+    public XMLSerialisation(String sender) throws JAXBException, JAXBException {
         // TODO initialize class-member
+        jc= JAXBContext.newInstance(EchoMessage.class);
+
+        marshaller= jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
+        unmarshaller=jc.createUnmarshaller();
+
+        this.sender=sender;
+
+
     }
 
     /**
@@ -42,11 +55,15 @@ public class XMLSerialisation {
      */
     public String messageToXMLString(EchoMessage message) throws JAXBException {
         // TODO message->XML
-        return "";
+        StringWriter stringWriter=new StringWriter();
+        marshaller.marshal(message,stringWriter);
+        String result=stringWriter.toString();
+        return result;
     }
 
     public EchoMessage getNewMessage() {
         // TODO EchoMessage aus ObjectFactory erzeugen, Sender und Type setzen
+
         return null;
     }
 
@@ -60,6 +77,7 @@ public class XMLSerialisation {
      */
     public EchoMessage xmlStringToMessage(String xml) throws JAXBException {
         // TODO XML->message
-        return null;
+        EchoMessage result=(EchoMessage) unmarshaller.unmarshal(new StringReader(xml));
+        return result;
     }
 }
